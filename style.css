@@ -1,0 +1,81 @@
+*,html,body{
+    margin:0;
+    padding:0;
+}
+
+.toolbar-cont{
+    background-color: #4b4b4b;
+    height:100px;
+    display: flex;
+    align-items: center;
+}
+
+.toolbox-priority-cont{
+    background-color: #3d3d3d;
+    display: flex;
+    width: 300px;
+    height: 70px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.color{
+    width: 40px;
+    height: 30px;
+    background-color: aqua;
+}
+
+.color:hover{
+    background-color: #485460;
+}
+
+.lightpink{
+    background-color: lightpink;
+}
+
+.lightblue{
+    background-color: lightblue;
+}
+
+.lightgreen{
+    background-color: lightgreen;
+}
+
+.black{
+    background-color: black;
+}
+
+.action-btn-cont{
+    background-color: #3d3d3d;
+    height: 70px;
+    display: flex;
+    width: 100px;
+    margin-left: 30px;
+}
+
+.add-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-size: 30px;
+    width: 50%;
+}
+
+.add-btn:hover{
+    background-color: #4bb543;
+}
+
+.remove-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-size: 30px;
+    width: 50%;
+}
+
+.remove-btn:hover{
+    background-color: #4bb543;
+}
+
