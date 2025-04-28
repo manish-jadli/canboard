@@ -73,7 +73,7 @@ function createTicket(){
         <i class="fa-solid fa-lock"></i>
     </div>
     `;
-}
+};
 
 
 
