@@ -62,7 +62,17 @@ modalCont.addEventListener("keydown",function(e){
 
 //create ticker code
 function createTicket(){
-    
+    let id=shortid();
+    let ticketCont=document.createElement('div');
+    ticketCont.setAttribute('class','ticket-cont');
+    ticketCont.innerHTML=`
+    <div class="ticket-color"></div>
+    <div class="ticket-id"></div>
+    <div class="task-area"></div>
+    <div class="ticket-lock">
+        <i class="fa-solid fa-lock"></i>
+    </div>
+    `;
 }
 
 
