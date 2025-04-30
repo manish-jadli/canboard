@@ -81,7 +81,7 @@ function createTicket(ticketColor, ticketTask){
     mainContainer.appendChild(ticketCont);
     handleColor();
     handleLock();
-    handleRemove();
+    handleRemove(ticketCont, id);
     ticketArray.push({ticketColor,ticketTask,ticketId:id});
     console.log('ticketArray -', ticketArray);
 };
@@ -94,8 +94,18 @@ function handleColor(){
 
 };
 
-function handleRemove(){
-
+function handleRemove(ticket, id){
+    ticket.addEventListener("click",function(){
+        if(!removeTaskFlag) return;
+        ticket.remove();
+        getTicketIds(id);
+    })
 };
 
+function getTicketIds(id){
+    let ticketId=ticketArray.filter(function(ticketObj){
+        return ticketObj.ticketId===id;
+    })
+    return ticketId[0];
+}
 
