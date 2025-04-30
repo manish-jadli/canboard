@@ -3,10 +3,14 @@ console.log('hiii');
 let addBtn=document.querySelector(".add-btn");
 let removeBtn=document.querySelector(".remove-btn");
 let allPriorityColors=document.querySelectorAll(".priority-color");
+let mainContainer=document.querySelector(".main-container");
 let addTaskFlag=false;
 let removeTaskFlag=false;
 let modalCont=document.querySelector(".modal-section");
 let textAreaCont=document.querySelector(".textArea-cont");
+let colors=["lieghtpink","lightgreen","lightblue","black"];
+let modalPriorityColor=colors[colors.length - 1];
+let ticketArray=[];
 
 
 //add modal code
@@ -45,6 +49,7 @@ allPriorityColors.forEach(function(colorElem){
             priorityColorElem.classList.remove("active");
         })
         colorElem.classList.add("active");
+        modalPriorityColor=colorElem.classList[0];
     })
 })
 
@@ -54,6 +59,7 @@ modalCont.addEventListener("keydown",function(e){
         let key=e.key;
         console.log(key);
         if(key ==="Enter"){
+            createTicket(modalPriorityColor,textAreaCont.value);
             modalCont.style.display="none";
             textAreaCont.value="";
 }
@@ -61,20 +67,36 @@ modalCont.addEventListener("keydown",function(e){
 
 
 //create ticker code
-function createTicket(){
+function createTicket(ticketColor, ticketTask){
     let id=shortid();
     let ticketCont=document.createElement('div');
     ticketCont.setAttribute('class','ticket-cont');
     ticketCont.innerHTML=`
-    <div class="ticket-color"></div>
-    <div class="ticket-id"></div>
-    <div class="task-area"></div>
+    <div class="ticket-color ${ticketColor}"></div>
+    <div class="ticket-id">${id}</div>
+    <div class="task-area">${ticketTask}</div>
     <div class="ticket-lock">
         <i class="fa-solid fa-lock"></i>
     </div>
     `;
+    mainContainer.appendChild(ticketCont);
+    handleColor();
+    handleLock();
+    handleRemove();
+    ticketArray.push({ticketColor,ticketTask,ticketId:id});
+    console.log('ticketArray -', ticketArray);
 };
 
+function handleLock(){
 
+};
+
+function handleColor(){
+
+};
+
+function handleRemove(){
+
+};
 
 
