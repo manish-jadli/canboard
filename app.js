@@ -1,4 +1,3 @@
-console.log('hiii');
 
 let addBtn=document.querySelector(".add-btn");
 let removeBtn=document.querySelector(".remove-btn");
