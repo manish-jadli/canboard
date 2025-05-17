@@ -128,8 +128,26 @@
     height:100%;
 }
 
+.main-cont{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
 
+.ticket-cont{
+    height:13rem;
+    width:13rem;
+    background-color: coral;
+}
 
+.ticket-color{
+    height:1rem;
+}
 
+.ticket-id{
+    height:2rem;
+    background-color: yellow;
+}
 
 
