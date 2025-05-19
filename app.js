@@ -1,16 +1,50 @@
 
 let addBtn=document.querySelector(".add-btn");
 let removeBtn=document.querySelector(".remove-btn");
+let textAreaCont=document.querySelector(".textArea-cont");
 let allPriorityColors=document.querySelectorAll(".priority-color");
 let mainContainer=document.querySelector(".main-container");
+let toolboxColors=document.querySelectorAll('.color');
 let addTaskFlag=false;
 let removeTaskFlag=false;
 let modalCont=document.querySelector(".modal-section");
-let textAreaCont=document.querySelector(".textArea-cont");
+let lockClass="fa fa-lock";
+let unlockClass="fa fa-lock-open";
 let colors=["lieghtpink","lightgreen","lightblue","black"];
 let modalPriorityColor=colors[colors.length - 1];
 let ticketArray=[];
 
+//find the elements from the array which have selected color
+//remove all the cards from the screen
+//render only the cards which are black on the screen
+
+for (let i=0; i <toolboxColors.length; i++){
+    toolboxColors[i].addEventListener("click", function(){
+        let selectedToolBoxColor=toolboxColors[i].classList[0];
+        let filteredTicket=ticketArray.filter(function(ticket){
+            return selectedToolBoxColor===ticket.ticketColor;
+        })
+        let allTickets=document.querySelectorAll(".ticket-cont");
+        for (let i=0;i<allTickets.length;i++){
+            allTickets[i].remove();
+        }
+        filteredTicket.forEach(function(filteredTicket){
+            createTicket(filteredTicket.ticketColor,filteredTicket.ticketTask,filteredTicket.ticketId);
+        })
+    })
+
+    toolboxColors[i].addEventListener("dblclick", function(){
+        let allTickets=document.querySelectorAll(".ticket-cont");
+        for (let i=0;i<allTickets.length;i++){
+            allTickets[i].remove();
+        }
+        ticketArray.forEach(function(ticketObj){
+            createTicket(ticketObj.ticketColor,ticketObj.ticketTask,ticketObj.ticketId);
+        })
+    })
+}
+
+    
 
 //add modal code
 addBtn.addEventListener("click",function(){
@@ -41,7 +75,6 @@ removeBtn.addEventListener("click",function(){
 })
 //end
 
-
 allPriorityColors.forEach(function(colorElem){
     colorElem.addEventListener("click",function(){
         allPriorityColors.forEach(function(priorityColorElem){
@@ -51,7 +84,6 @@ allPriorityColors.forEach(function(colorElem){
         modalPriorityColor=colorElem.classList[0];
     })
 })
-
 
 //keypressdown event
 modalCont.addEventListener("keydown",function(e){
@@ -64,10 +96,9 @@ modalCont.addEventListener("keydown",function(e){
 }
 })
 
-
 //create ticker code
-function createTicket(ticketColor, ticketTask){
-    let id=shortid();
+function createTicket(ticketColor, ticketTask, ticketId){
+    let id=ticketId || shortid();
     let ticketCont=document.createElement('div');
     ticketCont.setAttribute('class','ticket-cont');
     ticketCont.innerHTML=`
@@ -79,14 +110,33 @@ function createTicket(ticketColor, ticketTask){
     </div>
     `;
     mainContainer.appendChild(ticketCont);
-    handleColor();
-    handleLock();
+    handleColor(ticketCont, id);
+    handleLock(ticketCont, id);
     handleRemove(ticketCont, id);
-    ticketArray.push({ticketColor,ticketTask,ticketId:id});
+    if(!ticketId){
+        ticketArray.push({ticketColor,ticketTask,ticketId:id});
+    }
     console.log('ticketArray -', ticketArray);
 };
 
-function handleLock(){
+function handleLock(ticket,id){
+    let ticketLockElem=ticket.querySelector(".ticket-lock");
+    let ticketLockIcon=ticketLockElem.children[0];
+    let ticketTaskArea=ticket.querySelector(".task-area");
+
+    ticketLockIcon.addEventListener("click",function(){
+        let ticketIdx=getTicketIds(id);
+        if(ticketLockIcon.classList.contains(lockClass)){
+            ticketLockIcon.classList.add(unlockClass);
+            ticketLockIcon.classList.remove(lockClass);
+            ticketTaskArea.setAttribute('contenteditable',true);
+        }else{
+            ticketLockIcon.classList.add(lockClass);
+            ticketLockIcon.classList.remove(unlockClass);
+            ticketTaskArea.setAttribute('contenteditable',false);
+        }
+        ticketArray[ticketIdx].ticketTask=ticketTaskArea.innerText;
+    })
 
 };
 
