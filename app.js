@@ -14,6 +14,14 @@ let colors=["lieghtpink","lightgreen","lightblue","black"];
 let modalPriorityColor=colors[colors.length - 1];
 let ticketArray=[];
 
+
+if(localStorage.getItem('tickets')){
+    ticketArray=JSON.parse(localStorage.getItem('tickets'));
+    ticketArray.forEach(function(ticket){
+        createTicket(ticket.ticketColor,ticket.ticketTask,ticket.ticketId);
+    })
+}
+
 //find the elements from the array which have selected color
 //remove all the cards from the screen
 //render only the cards which are black on the screen
@@ -115,6 +123,7 @@ function createTicket(ticketColor, ticketTask, ticketId){
     handleRemove(ticketCont, id);
     if(!ticketId){
         ticketArray.push({ticketColor,ticketTask,ticketId:id});
+        localStorage.setItem('tickets', JSON.stringify(ticketArray));
     }
     console.log('ticketArray -', ticketArray);
 };
@@ -136,6 +145,7 @@ function handleLock(ticket,id){
             ticketTaskArea.setAttribute('contenteditable',false);
         }
         ticketArray[ticketIdx].ticketTask=ticketTaskArea.innerText;
+        localStorage.setItem('tickets', JSON.stringify(ticketArray));
     })
 
 };
@@ -149,6 +159,7 @@ function handleRemove(ticket, id){
         if(!removeTaskFlag) return;
         ticket.remove();
         getTicketIds(id);
+        localStorage.setItem('tickets', JSON.stringify(ticketArray));
     })
 };
 
