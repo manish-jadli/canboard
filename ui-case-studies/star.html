@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star</title>
+    <style>
+        body{
+            position: relative;
+            width:100vw;
+            height:100vh;
+        }
+
+        .rating{
+            position: absolute;
+            text-align: center;
+            top:50%;
+            left:50%;
+            transform: translate(-50%,-50%);
+        }
+        
+        .star{
+            cursor: pointer;
+        }
+
+        .star.filled{
+            color:gold;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="rating">
+        <span id="stars">
+        <span class="star" data-value="1"> &#9733; </span>
+        <span class="star" data-value="2"> &#9733; </span>
+        <span class="star" data-value="3"> &#9733; </span>
+        <span class="star" data-value="4"> &#9733; </span>
+        <span class="star" data-value="5"> &#9733; </span>  
+</span>
+<p><span id="rating">0</span> / 5 </p>
+</div>
+
+<script>
+
+    let stars=document.getElementById('stars');
+    let ratingDisplay=document.getElementById('rating');
+    let allStarts=document.querySelectorAll(".star");
+
+    stars.addEventListener("click",function(e){
+        if(e.target.classList.contains('star')){
+            let value=+(e.target.getAttribute('data-value'));
+            updateRating(value);
+        }
+    })
+
+    // function updateRating(value){
+    //     ratingDisplay.innerText=value;
+    //     console.log(allStarts[0]);
+    //     for (let i=0; i < allStarts.length; i++){
+    //         allStarts[i].classList.remove('filled');
+    //     }
+    //     for (let i=0; i <value; i++){
+    //         allStarts[i].classList.add('filled');
+    //     }
+    // }
+
+    function updateRating(value){
+        ratingDisplay.innerText=value;
+        allStarts.forEach(function(star){
+            const starValue=parseInt(star.getAttribute("data-value"));
+            star.classList.toggle("filled", starValue<=value);
+            // star.classList.remove("filled");
+            // if(starValue <=value){
+            //     star.classList.add("filled");
+            // }
+        })
+    }
+
+</script>
+
+</body>
+</html>
