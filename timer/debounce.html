@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce</title>
+</head>
+<body>
+
+    <section>
+        <input type="text" id="inp" />
+    </section>
+    <script>
+        function debounce(fn,timer){
+            let timeoutId;
+            return function(){
+                clearTimeout(timeoutId);
+                timeoutId=setTimeout(fn, timer);
+            }
+        }
+
+        function apiCaller(){
+            console.log('Hekko!')
+        }
+
+        document.getElementById("inp").addEventListener("keydown", debounce(apiCaller,2000))
+
+    </script>
+</body>
+</html>
