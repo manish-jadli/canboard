@@ -8,7 +8,9 @@
 <body>
 
     <section>
-        <input type="text" id="inp" />
+        <label for="debounce">Debounce</label><br/>
+        <input type="text" id="inp" /></br>
+        <button id="btn">Click</button>
     </section>
     <script>
         function debounce(fn,timer){
@@ -19,11 +21,27 @@
             }
         }
 
+        function throttle(fn,delay){
+            let lastExecution=0;
+            return function(){
+                let now =Date.now();
+                if(now-lastExecution >=delay){
+                    fn();
+                    lastExecution=now;
+                }
+            }
+        }
+
         function apiCaller(){
             console.log('Hekko!')
         }
 
-        document.getElementById("inp").addEventListener("keydown", debounce(apiCaller,2000))
+        function btnCalller(){
+            console.log("clcked throttle");
+        }
+
+        document.getElementById("inp").addEventListener("keydown", debounce(apiCaller,2000));
+        document.getElementById("btn").addEventListener("click", throttle(btnCalller,200));
 
     </script>
 </body>
