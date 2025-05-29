@@ -15,9 +15,12 @@
     <script>
         function debounce(fn,timer){
             let timeoutId;
-            return function(){
+            return function(event){
                 clearTimeout(timeoutId);
-                timeoutId=setTimeout(fn, timer);
+                //timeoutId=setTimeout(fn, timer);
+                timeoutId=setTimeout(function(){
+                    fn(event);
+                },timer);
             }
         }
 
@@ -32,15 +35,17 @@
             }
         }
 
-        function apiCaller(){
+        function apiCaller(e){
             console.log('Hekko!')
+            console.log(e);
         }
 
         function btnCalller(){
             console.log("clcked throttle");
         }
 
-        document.getElementById("inp").addEventListener("keydown", debounce(apiCaller,2000));
+        document.getElementById("inp").addEventListener("keydown", debounce(apiCaller,200));
+       // document.getElementById("inp").addEventListener("keydown", apiCaller);
         document.getElementById("btn").addEventListener("click", throttle(btnCalller,200));
 
     </script>
